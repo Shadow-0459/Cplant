@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="bootstrap3 legacyfalse chrometwo">
+    <head>
+        <!-- <link href="/chrome_themes/nimbus/css/chrometwo.css" rel="stylesheet" />
+        <script type="text/javascript" src="/webassets/avalon/j/lib/require.js"></script> -->
+
+        <script type="text/javascript" src="assets/js/require.js"></script>
+        <script type="text/javascript" src="assets/js/jquery-3.2.1.js" data-main="main.js"></script>
+        <!-- <script type="text/javascript" src="bower_components/disk/jquery.min.js" data-main="main.js"/> -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <base href="/labs/cplant/">
+        <title>Red Hat Custom Portal Labs Internal</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- @if DEBUG -->
+        <script>
+            window.LABS_DEBUG = true;
+            window.deps = [];
+            <!-- build:js(client) app/vendor.js -->
+                <!-- bower:js -->
+                /*<script src="bower_components/angular/angular.js"/>*/
+        window.deps.push("bower_components/angular/angular");
+                /*<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"/>*/
+        window.deps.push("bower_components/angular-bootstrap/ui-bootstrap-tpls");
+                /*<script src="bower_components/angular-ui-router/release/angular-ui-router.js"/>*/
+        window.deps.push("bower_components/angular-ui-router/release/angular-ui-router");
+                /*<script src="bower_components/angular-translate/angular-translate.js"/>*/
+        window.deps.push("bower_components/angular-translate/angular-translate");
+                /*<script src="bower_components/angular-animate/angular-animate.js"/>*/
+        window.deps.push("bower_components/angular-animate/angular-animate");
+                /*<script src="bower_components/angular-aria/angular-aria.js"/>*/
+        window.deps.push("bower_components/angular-aria/angular-aria");
+                /*<script src="bower_components/angular-messages/angular-messages.js"/>*/
+        window.deps.push("bower_components/angular-messages/angular-messages");
+                /*<script src="bower_components/angular-material/angular-material.js"/>*/
+        window.deps.push("bower_components/angular-material/angular-material");
+                <!-- endbower -->
+            <!-- endbuild -->
+
+            <!-- build:js({.tmp,client}) app/app.js -->
+                /*<script src="app/app.js"/>*/
+                window.deps.push('app/app')
+                <!-- injector:js -->
+                /*<script src="app/main/main.controller.js"/>*/
+        window.deps.push("app/main/main.controller");
+                /*<script src="app/main/main.js"/>*/
+        window.deps.push("app/main/main");
+                /*<script src="app/services/answersService.js"/>*/
+        window.deps.push("app/services/answersService");
+                /*<script src="app/services/createCplantService.js"/>*/
+        window.deps.push("app/services/createCplantService");
+                /*<script src="app/services/utilityService.js"/>*/
+        window.deps.push("app/services/utilityService");
+                /*<script src="components/angular-translate-loader-static-files.min.js"/>*/
+        window.deps.push("components/angular-translate-loader-static-files.min");
+                <!-- endinjector -->
+            <!-- endbuild -->
+        </script>
+        <!-- @endif -->
+        <!-- build:js(client) app/loader.js -->
+            <script type="text/javascript" src="loader.js"></script>
+        <!-- endbuild -->
+        <!-- build:css(client) app/vendor.css -->
+            <!-- bower:css -->
+            <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+            <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css({.tmp,client}) app/app.css -->
+            <link rel="stylesheet" href="app/app.css">
+            <!-- injector:css -->
+            <!-- endinjector -->
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!-- <div id="chrometwo">
+            <div id="chromed-app-content" class="container"> -->
+        <div id="cplant" layout="row" ui-view="" lauout-padding></div>
+            <!-- </div>
+        </div> -->
+        <script type="text/javascript">
+            window.breadcrumbs = [
+                ['Labs', '/labs/'],
+                ['Red Hat Custom Portal Labs Internal','/labs/cplant/']
+            ];
+        </script>
+    </body>
+</html>
