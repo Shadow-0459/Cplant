@@ -1,0 +1,15 @@
+{
+  "name": "cplant",
+  "version": "0.0.2",
+  "dependencies": {
+    "angular": "^1.6.5",
+    "angular-bootstrap": "^2.5.0",
+    "angular-ui-router": "^1.0.5",
+    "angular-translate": "~2.7.2",
+    "angular-material": "^1.1.5"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6.5",
+    "angular-scenario": "^1.6.5"
+  }
+}
