@@ -1,0 +1,103 @@
+div#requestsReview(layout="row")
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(md-is-locked-open="lockLeft && $mdMedia('gt-lg')" md-component-id="left")
+        md-toolbar.requestsReviewSidenavToolbar
+            img(src="assets/images/Red_Hat_CMYK.png")
+        md-content(flex).requestsReviewSidenavContent
+            md-list.requestsReviewSidenavList
+                md-list-item(ng-click="changeSwitchContent(1)")
+                    img(src="assets/images/ic_cloud_white_48dp_1x.png")
+                    span app requests revision
+                md-list-item(ng-click="changeSwitchContent(2)")
+                    img(src="assets/images/ic_cloud_white_48dp_1x.png")
+                    span bug requests revision
+                md-list-item(ng-click="changeSwitchContent(3)")
+                    img(src="assets/images/ic_cloud_white_48dp_1x.png")
+                    span feature requests revision
+                md-list-item(ng-click="changeSwitchContent(4)")
+                    img(src="assets/images/ic_keyboard_return_white_48dp_1x.png")
+                    span Back to the landing page
+    md-content(flex)
+        md-toolbar(layout="row")
+            md-button.menu(ng-click="lockLeft=!lockLeft")
+                md-icon(md-svg-src="assets/images/ic_reorder_black_24px.svg")
+            h1(flex) Request revision
+            div.requestsReviewContentAvatar(ng-click="logOutOpen()")
+                img(src="assets/images/ic_sentiment_very_satisfied_white_48dp_1x.png").avatar
+                img(src="assets/images/ic_arrow_drop_down_white_48dp_1x.png").iconDown 
+                p.requestsReviewContentLogOut(ng-show="logOutIS" ng-click="logOut()") Log out   
+        md-content(flex ng-show="!switchContent").switchReviewRequests
+            md-card(flex layout="row" layout-align="space-between center").reviewRequestsCard 
+                div(layout="row")
+                    span.reviewRequestsCard-titleNumber number
+                    span.reviewRequestsCard-titleRequester requester
+                    span.reviewRequestsCard-titleAppName(ng-if="switchValue === 1") App Name
+                    span.reviewRequestsCard-titleBugSummary(ng-if="switchValue === 2") Bug Summary
+                    span.reviewRequestsCard-titleFeatureSubject(ng-if="switchValue === 3") Feature Subject
+                div(layout="row")
+                    span.reviewRequestsCard-titleFunction Delete
+                    span.reviewRequestsCard-titleFunction Approval
+                    span.reviewRequestsCard-titleFunction Attachment
+            md-card(flex layout="column" ng-repeat="request in requests.data track by $index").reviewRequestsCard 
+                div(flex layout="row" layout-align="space-between center"  ng-click="request.showDetails = !request.showDetails").reviewRequestsCard-resume
+                    div(layout="row")
+                        md-icon.icon-details(md-svg-src="assets/images/ic_keyboard_arrow_down_black_48px.svg" ng-if="request.showDetails")
+                        md-icon.icon-details(md-svg-src="assets/images/ic_keyboard_arrow_right_black_48px.svg" ng-if="!request.showDetails")
+                        span.reviewRequestsCard-number {{$index+1}}
+                        span.reviewRequestsCard-requester(ng-model="request.requester") {{request.requester}}
+                        span.reviewRequestsCard-appName(ng-model="request.appName" ng-if="switchValue === 1") {{request.appName}}
+                        span.reviewRequestsCard-bugSummary(ng-model="request.bugSummary" ng-if="switchValue === 2") {{request.bugSummary}}
+                        span.reviewRequestsCard-featureSubject(ng-model="request.featureSubject" ng-if="switchValue === 3") {{request.featureSubject}}
+                    div(layout="row")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_content_cut_black_48px.svg" ng-click="showDeleteConfirm($event,request._id,switchValue)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_check_box_outline_blank_black_24px.svg" ng-if="request.requestStatus === 'accept'" ng-click="showStatusChange($event,request,switchValue)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_check_box_black_24px.svg" ng-if="request.requestStatus === 'adopt'" ng-click="showStatusChange($event,request,switchValue)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_clear_black_48px.svg" ng-if="request.requestStatus === 'reject'" ng-click="showStatusChange($event,request,switchValue)")      
+                        md-icon.icon-function(md-svg-src="assets/images/ic_file_download_black_48px.svg" ng-click="downloadAttachment(request.fileName,$event)")
+                div(flex layout="column" ng-if="request.showDetails && switchValue === 1").reviewRequestsCard-detail   
+                    span(flex).reviewRequestsCard-details {{"PROVIDE_NAME"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.appName}}
+                    span(flex).reviewRequestsCard-details {{"PROVIDE_DESCRIPTION"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.appDescription }}
+                    span(flex).reviewRequestsCard-details {{"CHOOSE_PRODUCT"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.product}}
+                    span(flex).reviewRequestsCard-details {{"TOOL_BELONG_TO"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.belongTo}}
+                    span(flex ng-if="request.toolUser !== ''").reviewRequestsCard-details {{"WHO_USE_TOOL"|translate}}
+                    span(flex ng-if="request.toolUser !== ''").reviewRequestsCard-details {{request.toolUser}} 
+                    span(flex ng-if="request.userToolHave !== ''").reviewRequestsCard-details {{"POTENTIAL_USERS_TOOL_HAVE"|translate}}
+                    span(flex ng-if="request.userToolHave !== ''").reviewRequestsCard-details {{request.userToolHave}}
+                    span(flex ng-if="request.caseOpenDay !== ''").reviewRequestsCard-details {{"CASE_OPENED_IN_30DAYS"|translate}}
+                    span(flex ng-if="request.caseOpenDay !== ''").reviewRequestsCard-details {{request.caseOpenDay}}
+                    span(flex ng-if="request.toolHelpDecrease !== ''").reviewRequestsCard-details {{"TOOL_HELP_DECREASE"|translate}}
+                    span(flex ng-if="request.toolHelpDecrease !== ''").reviewRequestsCard-details {{request.toolHelpDecrease}}
+                    span(flex ng-if="request.toolHelpShorten !== ''").reviewRequestsCard-details {{"TOOL_HELP_SHORTEN"|translate}}
+                    span(flex ng-if="request.toolHelpShorten !== ''").reviewRequestsCard-details {{request.toolHelpShorten}}
+                    span(flex ng-if="request.toolExisting !== ''").reviewRequestsCard-details {{"TOOLS_EXISTING"|translate}}
+                    span(flex ng-if="request.toolExisting !== ''").reviewRequestsCard-details {{request.toolExisting}}
+                    span(flex ng-if="request.kbaseSolutions !== ''").reviewRequestsCard-details {{"KBASE_SOLUTIONS"|translate}}
+                    span(flex ng-if="request.kbaseSolutions !== ''").reviewRequestsCard-details {{request.kbaseSolutions}}
+                    span(flex).reviewRequestsCard-details {{"KEY_REQUIREMENTS"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.keyRequirements}}
+                    span(flex).reviewRequestsCard-details {{"LIST_SCENARIOS"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.ListScenarios}}
+                    span(flex ng-if="request.specific !== ''").reviewRequestsCard-details {{"SPECIFIC"|translate}}
+                    span(flex ng-if="request.specific !== ''").reviewRequestsCard-details {{request.specific}}
+                    span(flex ng-if="request.primaryContact !== ''").reviewRequestsCard-details {{"PRIMARY_CONTACT"|translate}}
+                    span(flex ng-if="request.primaryContact !== ''").reviewRequestsCard-details {{request.primaryContact}}
+                div(flex layout="column" ng-if="request.showDetails && switchValue === 2").reviewRequestsCard-detail         
+                    span(flex).reviewRequestsCard-details select a apps you want the bug for :
+                    span(flex).reviewRequestsCard-details {{request.apps }}
+                    span(flex).reviewRequestsCard-details write down the summary of the bug :
+                    span(flex).reviewRequestsCard-details {{request.bugSummary}} 
+                    span(flex).reviewRequestsCard-details write down the description of the bug :
+                    span(flex).reviewRequestsCard-details {{request.bugDescription}}
+                div(flex layout="column" ng-if="request.showDetails && switchValue === 3").reviewRequestsCard-detail    
+                    span(flex).reviewRequestsCard-details select a apps you want the bug for :
+                    span(flex).reviewRequestsCard-details {{request.apps }}     
+                    span(flex).reviewRequestsCard-details The new feature's Subject :
+                    span(flex).reviewRequestsCard-details {{request.featureSubject}}
+                    span(flex).reviewRequestsCard-details The new feature\'s Description :
+                    span(flex).reviewRequestsCard-details {{request.featureDescription}}
+        md-content(flex ng-show="switchContent").switchNewRequest
+            form(name="requestsReviewForm" layout="column")#requestsReviewForm 
+                h2 hello , welcome to administers page

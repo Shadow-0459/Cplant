@@ -1,0 +1,10 @@
+div#landingPageRadioGroup(layout="column") 
+    img#landingPageLogo(src="assets/images/Red_Hat_CMYK.png")
+    span#landingPageTitle(flex) CP Labs App Nomination
+    md-radio-group(layout="column" ng-model="answer.stateTo")
+        span#landingPageQuestion Choose a function you need according to your role :
+        md-radio-button(value="Nominate a new proposal app") Nominate a new proposal app
+        md-radio-button(value="Open a bug for an existing app") Open a bug for an existing app
+        md-radio-button(value="Open a feature request for an existing app") Open a feature request for an existing app
+        md-radio-button(value="Review nominations") Review nominations ( * Only for CP Labs Team administers)
+    md-button#landingPageButton(ng-click="stateGo()") Go

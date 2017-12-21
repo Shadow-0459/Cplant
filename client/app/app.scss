@@ -1,0 +1,26 @@
+.rh-navbar {
+    padding-bottom: 25px;
+}
+body{
+    overflow:-Scroll;
+    overflow-y:hidden;
+
+    -webkit-user-select:none; 
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+#cplant{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+// Component styles are injected through grunt
+// injector
+@import 'bugRequest/bugRequest.scss';
+@import 'featureRequest/featureRequest.scss';
+@import 'logInPage/logInPage.scss';
+@import 'main/main.scss';
+@import 'newAppRequest/newAppRequest.scss';
+@import 'requestsReview/requestsReview.scss';

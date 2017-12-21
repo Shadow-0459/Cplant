@@ -1,0 +1,187 @@
+html{
+    overflow:-Scroll;
+    overflow-y:hidden;
+}
+#featureRequest {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+//sidenav + contentToolbar
+
+.md-sidenav-left{
+    height: 100%;
+}
+.featureRequestSidenavToolbar{
+    height: 96px;
+    background-color: #6E99FD;
+}
+.featureRequestSidenavToolbar img{
+    width: 200px;
+    height: 60px;
+    margin: 15px auto;
+}
+.featureRequestSidenavContent{
+    background-color: rgba(0,0,0,.87);
+    color: rgba(148, 148, 148, 0.88);
+    font-size: 24px;
+}
+.featureRequestSidenavList md-list-item{
+    margin-top: 30px;
+    box-shadow: 3px 0px 49px -12px rgba(148, 148, 148, 0.88);
+}
+.featureRequestSidenavList img{
+    width: 36px;
+    height: 36px;
+    margin-right: 20px;
+}
+.featureRequestSidenavList md-list-item:last-child{
+    position: absolute;
+    bottom: 20%;
+}
+.menu md-icon{
+    height: 36px;
+    width: 36px;
+}
+.featureRequestContentAvatar{
+    width: 150px;
+    height: 48px;
+    float: right;
+    margin: 20px;
+    margin-right: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 3px rgba(255,255,255,0.76);
+}
+.featureRequestContentAvatar .Avatar.iconDown{
+    width: 48px;
+    height: 48px;
+}
+.featureRequestContentAvatar .Avatar{
+    float: left;
+}
+.featureRequestContentAvatar .iconDown{
+    float: right;
+}
+.featureRequestContentLogOut{
+    position: absolute;
+    display: block;
+    width: 150px;
+    height: 40px;
+    margin: 0px;
+    background: rgb(244, 244, 244);
+    line-height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    color: black;
+}
+.featureRequestContentLogOut:hover{
+    background-color: #6E99FD;
+    cursor: default;
+}
+
+
+//content
+
+.card-shadow{
+    border-radius: 2px;
+    display: inline-block;
+    margin: 1rem;
+    box-shadow: 3px 3px 20px 0px rgba(158,158,158,1);
+}
+.card-shadow label{
+    font-size: 24px;
+}
+.picFileShow{
+    width: 64px;
+    height: 64px;
+    margin-left: 30px;
+}
+.picFileShowError{
+    color: red;
+    margin: 0;
+    line-height: 25px;
+}
+.appSelect{
+    width: 180px;
+}
+#featureRequestRemove{
+    width: 100px;
+    height: 24px;
+    margin-left: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 3px black;
+    text-align: center;
+    line-height: 24px;
+}
+#featureRequestSubmit {
+    height: 64px;
+    width: 500px;
+    border-radius: 50px;
+    background: rgb(63,81,181);
+    font-size: 32px;
+    margin: 64px auto;
+    line-height: 64px;
+}
+
+//content
+.reviewFeatureRequestsCard {
+    font-size: 32px;
+    margin: 40px;
+    padding: 30px;
+    background: rgba(148, 148, 148, 0.88);
+}
+.reviewRequestsCard-titleNumber{
+    width: 150px;
+    text-align: center;
+    line-height: 48px;
+    margin-left: 64px;
+    color: rgb(63,81,181);
+}
+.reviewRequestsCard-titleFeatureSubject{
+    width: 300px;
+    text-align: center;
+    color: rgb(63,81,181);
+}
+.reviewRequestsCard-titleFunction{
+    width: 150px;
+    height: 64px;
+    text-align: center;
+    line-height: 64px;
+    color: rgb(63,81,181);
+}
+.reviewRequestsCard-number{
+    line-height: 64px;
+    width: 150px;
+    text-align: center;
+}
+.reviewRequestsCard-featureSubject{
+    line-height: 64px;
+    text-align: center;
+    width: 300px;
+}
+.reviewRequestsCard-resume .icon-function{
+    width: 150px;
+    height: 64px;
+    z-index: 100;
+}
+.icon-details{
+    height: 64px;
+    width: 64px;
+    margin: 0;
+}
+.reviewRequestsCard-detail{
+    margin-top: 30px;
+    border-top:1px solid;
+}
+.reviewRequestsCard-details:nth-child(2n+1){
+    margin-top: 20px;
+    margin-left: 60px;
+    color: rgb(63,81,181);
+    display: block;
+}
+.reviewRequestsCard-details:nth-child(2n+2){
+    margin-left: 60px;
+    display: block;
+}

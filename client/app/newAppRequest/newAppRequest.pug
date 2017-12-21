@@ -1,0 +1,234 @@
+div#newAppRequest(layout="row")
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(md-is-locked-open="lockLeft && $mdMedia('gt-md')" md-component-id="left")
+        md-toolbar.newAppRequestSidenavToolbar
+            img(src="assets/images/Red_Hat_CMYK.png")
+        md-content(flex).newAppRequestSidenavContent
+            md-list.newAppRequestSidenavList
+                md-list-item(ng-click="changeSwitchContent(1)")
+                    img(src="assets/images/ic_add_circle_white_48dp_1x.png")
+                    span Request a new
+                md-list-item(ng-click="changeSwitchContent(2)")
+                    img(src="assets/images/ic_cloud_white_48dp_1x.png")
+                    span Review request
+                md-list-item(ng-click="changeSwitchContent(3)")
+                    img(src="assets/images/ic_keyboard_return_white_48dp_1x.png")
+                    span Back to the landing page
+    md-content(flex)
+        md-toolbar(layout="row")
+            md-button.menu(ng-click="lockLeft=!lockLeft")
+                md-icon(md-svg-src="assets/images/ic_reorder_black_24px.svg")
+            h1(flex) {{'REQUEST_NEW_APP'|translate}}
+            div.newAppRequestContentAvatar(ng-click="logOutOpen()")
+                img(src="assets/images/ic_sentiment_very_satisfied_white_48dp_1x.png").avatar
+                img(src="assets/images/ic_arrow_drop_down_white_48dp_1x.png").iconDown 
+                p.newAppRequestContentLogOut(ng-show="logOutIS" ng-click="logOut()") Log out   
+        md-content(flex ng-show="!switchContent").switchReviewRequests
+            md-card(flex layout="row" layout-align="space-between center").reviewNewAppRequestsCard 
+                div(layout="row")
+                    span.reviewRequestsCard-titleNumber number
+                    span.reviewRequestsCard-titleAppName App Name
+                div(layout="row")
+                    span.reviewRequestsCard-titleFunction Delete
+                    span.reviewRequestsCard-titleFunction Approval
+            md-card(flex layout="column" ng-repeat="request in requests track by $index" ng-click="request.showDetails = !request.showDetails").reviewNewAppRequestsCard 
+                div(flex layout="row" layout-align="space-between center").reviewRequestsCard-resume
+                    div(layout="row")
+                        md-icon.icon-details(md-svg-src="assets/images/ic_keyboard_arrow_down_black_48px.svg" ng-if="request.showDetails")
+                        md-icon.icon-details(md-svg-src="assets/images/ic_keyboard_arrow_right_black_48px.svg" ng-if="!request.showDetails")
+                        span.reviewRequestsCard-number {{$index+1}}
+                        span.reviewRequestsCard-appName(ng-model="request.appName") {{request.appName}}
+                    div(layout="row")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_content_cut_black_48px.svg" ng-click="showConfirm($event,request._id)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_check_box_outline_blank_black_24px.svg" ng-if="request.requestStatus === 'accept'" ng-click="showStatusChange($event,request)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_check_box_black_24px.svg" ng-if="request.requestStatus === 'adopt'" ng-click="showStatusChange($event,request)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_clear_black_48px.svg" ng-if="request.requestStatus === 'reject'" ng-click="showStatusChange($event,request)")      
+                div(flex layout="column" ng-if="request.showDetails").reviewRequestsCard-detail         
+                    span(flex).reviewRequestsCard-details {{"PROVIDE_NAME"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.appName}}
+                    span(flex).reviewRequestsCard-details {{"PROVIDE_DESCRIPTION"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.appDescription }}
+                    span(flex).reviewRequestsCard-details {{"CHOOSE_PRODUCT"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.product}}
+                    span(flex).reviewRequestsCard-details {{"TOOL_BELONG_TO"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.belongTo}}
+                    span(flex ng-if="request.toolUser !== ''").reviewRequestsCard-details {{"WHO_USE_TOOL"|translate}}
+                    span(flex ng-if="request.toolUser !== ''").reviewRequestsCard-details {{request.toolUser}} 
+                    span(flex ng-if="request.userToolHave !== ''").reviewRequestsCard-details {{"POTENTIAL_USERS_TOOL_HAVE"|translate}}
+                    span(flex ng-if="request.userToolHave !== ''").reviewRequestsCard-details {{request.userToolHave}}
+                    span(flex ng-if="request.caseOpenDay !== ''").reviewRequestsCard-details {{"CASE_OPENED_IN_30DAYS"|translate}}
+                    span(flex ng-if="request.caseOpenDay !== ''").reviewRequestsCard-details {{request.caseOpenDay}}
+                    span(flex ng-if="request.toolHelpDecrease !== ''").reviewRequestsCard-details {{"TOOL_HELP_DECREASE"|translate}}
+                    span(flex ng-if="request.toolHelpDecrease !== ''").reviewRequestsCard-details {{request.toolHelpDecrease}}
+                    span(flex ng-if="request.toolHelpShorten !== ''").reviewRequestsCard-details {{"TOOL_HELP_SHORTEN"|translate}}
+                    span(flex ng-if="request.toolHelpShorten !== ''").reviewRequestsCard-details {{request.toolHelpShorten}}
+                    span(flex ng-if="request.toolExisting !== ''").reviewRequestsCard-details {{"TOOLS_EXISTING"|translate}}
+                    span(flex ng-if="request.toolExisting !== ''").reviewRequestsCard-details {{request.toolExisting}}
+                    span(flex ng-if="request.kbaseSolutions !== ''").reviewRequestsCard-details {{"KBASE_SOLUTIONS"|translate}}
+                    span(flex ng-if="request.kbaseSolutions !== ''").reviewRequestsCard-details {{request.kbaseSolutions}}
+                    span(flex).reviewRequestsCard-details {{"KEY_REQUIREMENTS"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.keyRequirements}}
+                    span(flex).reviewRequestsCard-details {{"LIST_SCENARIOS"|translate}}
+                    span(flex).reviewRequestsCard-details {{request.ListScenarios}}
+                    span(flex ng-if="request.specific !== ''").reviewRequestsCard-details {{"SPECIFIC"|translate}}
+                    span(flex ng-if="request.specific !== ''").reviewRequestsCard-details {{request.specific}}
+                    span(flex ng-if="request.primaryContact !== ''").reviewRequestsCard-details {{"PRIMARY_CONTACT"|translate}}
+                    span(flex ng-if="request.primaryContact !== ''").reviewRequestsCard-details {{request.primaryContact}}
+        md-content(layout="column"  ng-show="switchContent").switchNewRequest
+            form(name="newAppRequestForm" layout="column" md-top-index="scroll.ErrorPlace" ng-submit="newAppRequest()")#newAppRequestForm
+                div(layout="column").annotation
+                    h6(flex) {{"ANSWER_THE_BELOW_QUESTIONS"|translate}}
+                    h6(flex) {{"CONFIRM_ADDRESS"|translate}}
+                        a(href='https://accounts.google.com/AccountChooser') {{"SWITCH_ACCOUNT"|translate}}
+                    h6.required-color(flex) * Required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"PROVIDE_NAME"|translate}}
+                            span.required-color  *
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.appName" name="appName" required)
+                            .input-error(ng-messages="newAppRequestForm.appName.$error" ng-if="newAppRequestForm.appName.$dirty && newAppRequestForm.appName.$invalid")
+                                span(ng-message="required") The appName is required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"PROVIDE_DESCRIPTION"|translate}}
+                            span.required-color  *
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.appDescription" name="appDescription" required)
+                            .input-error(ng-messages="newAppRequestForm.appDescription.$error" ng-if="newAppRequestForm.appDescription.$dirty && newAppRequestForm.appDescription.$invalid")
+                                span(ng-message="required") The appDescription is required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"CHOOSE_PRODUCT"|translate}}
+                            span.required-color  *
+                    md-card-content(layout="row")
+                        md-radio-group(layout="column" name="product" ng-model="answer.product" required)
+                            md-radio-button(value="Red Hat Enterprise Linux") Red Hat Enterprise Linux
+                            md-radio-button(value="JBoss") JBoss
+                            md-radio-button(value="Red Hat Virtualization") Red Hat Virtualization
+                            md-radio-button(value="Cloud") Cloud
+                            md-radio-button(value="Mobile") Mobile
+                            md-radio-button(value="Other-product").others Other:
+                            md-input-container(ng-if="answer.product === 'Other-product'")
+                                textarea(placeholder="Your answer" rows="1" cols="20" ng-model="answer.productOther" name="productOther" required) //ng-change="productTextareaChange()"
+                                .input-error(ng-messages="newAppRequestForm.productOther.$error" ng-if="newAppRequestForm.productOther.$dirty && newAppRequestForm.productOther.$invalid")
+                                    span(ng-message="required") The productOther is required
+                            .input-error(ng-messages="newAppRequestForm.product.$error" ng-if="newAppRequestForm.product.$dirty && newAppRequestForm.product.$invalid")
+                                span(ng-message="required") The product is required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"TOOL_BELONG_TO"|translate}}
+                            span.required-color  *
+                    md-card-content(layout="row")
+                        md-radio-group(layout="column" ng-model="answer.belongTo" name="belongTo" required)
+                            md-radio-button(value="Kernel") Kernel
+                            md-radio-button(value="Networking") Networking
+                            md-radio-button(value="Storage") Storage
+                            md-radio-button(value="Virtulualization") Virtulualization
+                            md-radio-button(value="JBoss Base AS") JBoss Base AS
+                            md-radio-button(value="Ceph") Ceph
+                            md-radio-button(value="Stack") Stack
+                            md-radio-button(value="Other-tool").others Other:
+                            md-input-container(ng-if="answer.belongTo === 'Other-tool'")
+                                textarea(placeholder="Your answer" rows="1" cols="20" ng-model="answer.belongToOther" name="belongToOther" required)
+                                .input-error(ng-messages="newAppRequestForm.belongToOther.$error" ng-if="newAppRequestForm.belongToOther.$dirty && newAppRequestForm.belongToOther.$invalid")
+                                    span(ng-message="required") The belongToOther is required
+                            .input-error(ng-messages="newAppRequestForm.belongTo.$error" ng-if="newAppRequestForm.belongTo.$dirty && newAppRequestForm.belongTo.$invalid")
+                                span(ng-message="required") The belongTo is required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"WHO_USE_TOOL"|translate}}
+                            span.required-color  *
+                    md-card-content(layout="column" ng-model="answer.toolUser")
+                        md-checkbox(ng-model="answer.userCustomers" name="toolUser" aria-label="Customers") Customers
+                        md-checkbox(ng-model="answer.userSDSCET" name="toolUser" aria-label="Support Delivery / Strategic Customer Engagement teams") Support Delivery / Strategic Customer Engagement teams
+                        md-checkbox(ng-model="answer.userOther" name="toolUser" aria-label="Other:").others Other:
+                        md-input-container(ng-if="answer.userOther === true")
+                            textarea(placeholder="Your answer" rows="1" cols="20" ng-model="answer.userOtherContent" name="userOtherContent" required)
+                            .input-error(ng-messages="newAppRequestForm.userOtherContent.$error" ng-if="newAppRequestForm.userOtherContent.$dirty && newAppRequestForm.userOtherContent.$invalid")
+                                span(ng-message="required") The userOtherContent is required
+                        //- .input-error(ng-messages="newAppRequestForm.toolUser.$error" ng-if="newAppRequestForm.toolUser.$dirty && newAppRequestForm.toolUser.$invalid")
+                        //-     span(ng-message="required") The toolUser is required
+                md-card(layout="column").card-shadow
+                    md-card-title(layout="column")
+                        h3 {{"POTENTIAL_USERS_TOOL_HAVE"|translate}}
+                        h5 {{"DO_BEST_FOR_EXACT_NUMBER"|translate}}
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.userToolHave" name="userToolHave")
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"CASE_OPENED_IN_30DAYS"|translate}}
+                    md-card-content(layout="row")
+                        md-radio-group(layout="column" ng-model="answer.caseOpenDay")
+                            md-radio-button(value="1000+") 1000+
+                            md-radio-button(value="500 - 1000") 500 - 1000
+                            md-radio-button(value="100 - 500") 100 - 500
+                            md-radio-button(value="50 - 100") 50 - 100
+                            md-radio-button(value="0 - 50") 0 - 50
+                            md-radio-button(value="Other-case").others Other:
+                            md-input-container(ng-if="answer.caseOpenDay === 'Other-case'")
+                                textarea(placeholder="Your answer" rows="1" cols="20" ng-model="answer.caseOpenDayOther" name="caseOpenDayOther")
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"TOOL_HELP_DECREASE"|translate}}
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.toolHelpDecrease")
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"TOOL_HELP_SHORTEN"|translate}}
+                    md-card-content(layout="column")
+                        md-radio-group(ng-model="answer.toolHelpShorten")
+                            md-radio-button(value="Yes 50%") Yes 50%
+                            md-radio-button(value="Yes 20%") Yes 20%
+                            md-radio-button(value="NO") NO
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"TOOLS_EXISTING"|translate}}
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.toolExisting")
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"KBASE_SOLUTIONS"|translate}}
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.kbaseSolutions") 
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"KEY_REQUIREMENTS"|translate}}
+                        span.required-color  *
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.keyRequirements" name="keyRequirements" required)
+                            .input-error(ng-messages="newAppRequestForm.keyRequirements.$error" ng-if="newAppRequestForm.keyRequirements.$dirty && newAppRequestForm.keyRequirements.$invalid")
+                                span(ng-message="required") The keyRequirements is required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"LIST_SCENARIOS"|translate}}
+                        span.required-color  *
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.ListScenarios" name="ListScenarios" required)
+                            .input-error(ng-messages="newAppRequestForm.ListScenarios.$error" ng-if="newAppRequestForm.ListScenarios.$dirty && newAppRequestForm.ListScenarios.$invalid")
+                                span(ng-message="required") The ListScenarios is required
+                md-card(layout="column").card-shadow
+                    md-card-title
+                        h3 {{"SPECIFIC"|translate}}
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.specific")
+                md-card(layout="column").card-shadow
+                    md-card-title(layout="column")
+                        h3 {{"PRIMARY_CONTACT"|translate}}
+                        h5 {{"PROVIDE_EMAIL_ADDRESSES"|translate}}
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="Your answer" rows="1" cols="60" ng-model="answer.primaryContact")
+                md-card(layout="column").card-shadow
+                    md-switch(flex)
+                        span {{"SEND_RESPONSES"|translate}}
+                //- md-button#newAppRequestSubmit(ng-click="newAppRequest()" ng-model="scroll.ToError") {{"BUTTON_SUBMIT"|translate}} 
+                input(type="submit" value="submit a new app")#newAppRequestSubmit

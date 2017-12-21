@@ -1,0 +1,14 @@
+div(flex layout="column" layout-align="center center").logInPage
+    md-card(layout="column").logInPage-card-logo
+        img(flex src="assets/images/Red_Hat.png")
+    md-card(layout="column").logInPage-card-logIn
+        form(flex name="cplantLoginForm" layout="column")
+            md-input-container(md-no-float).logInPage-card-input
+                label
+                md-icon(md-svg-src="assets/images/ic_perm_contact_calendar_black_36px.svg")
+                input(type="text" placeholder="UserName" ng-model="answer.logInUserName")   
+            md-input-container(md-no-float).logInPage-card-input
+                label
+                md-icon(md-svg-src="assets/images/ic_vpn_key_black_48px.svg")
+                input(type="text" placeholder="Password" ng-model="answer.logInPassword")   
+            md-button.logInPage-button(ng-click="logIn()") LogIn

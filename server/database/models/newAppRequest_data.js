@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-module.exports = mongoose.model('Cplant', {
+module.exports = mongoose.model('newAppRequests', {
     appName: {
         type: String,
         default: ''
@@ -10,54 +10,66 @@ module.exports = mongoose.model('Cplant', {
     },
     product: {
         type: String,
-        product: ''
+        default: ''
     },
     belongTo: {
         type: String,
-        product: ''
+        default: ''
     },
     toolUser: {
         type: String,
-        product: ''
+        default: ''
     },
     userToolHave: {
         type: String,
-        product: ''
+        default: ''
     },
     caseOpenDay: {
         type: String,
-        product: ''
+        default: ''
     },
     toolHelpDecrease: {
         type: String,
-        product: ''
+        default: ''
     },
     toolHelpShorten: {
         type: String,
-        product: ''
+        default: ''
     },
     toolExisting: {
         type: String,
-        product: ''
+        default: ''
     },
     kbaseSolutions: {
         type: String,
-        product: ''
+        default: ''
     },
     keyRequirements: {
         type: String,
-        product: ''
+        default: ''
     },
     ListScenarios: {
         type: String,
-        product: ''
+        default: ''
     },
     specific: {
         type: String,
-        product: ''
+        default: ''
     },
     primaryContact: {
         type: String,
-        product: ''
+        default: ''
+    },
+    requestStatus: {
+        type: String,
+        default: 'accept'
+    },
+    requester: {
+        type: String,
+        default: 'Beckham'
+    },
+    showDetails:{
+        type: Boolean,
+        default: false
     }
 });

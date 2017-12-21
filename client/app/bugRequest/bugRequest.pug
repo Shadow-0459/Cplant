@@ -1,0 +1,93 @@
+div#bugRequest(layout="row")
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(md-is-locked-open="lockLeft && $mdMedia('gt-lg')" md-component-id="left")
+        md-toolbar.bugRequestSidenavToolbar
+            img(src="assets/images/Red_Hat_CMYK.png")
+        md-content(flex).bugRequestSidenavContent
+            md-list.bugRequestSidenavList
+                md-list-item(ng-click="changeSwitchContent(1)")
+                    img(src="assets/images/ic_add_circle_white_48dp_1x.png")
+                    span Request a new
+                md-list-item(ng-click="changeSwitchContent(2)")
+                    img(src="assets/images/ic_cloud_white_48dp_1x.png")
+                    span Review request
+                md-list-item(ng-click="changeSwitchContent(3)")
+                    img(src="assets/images/ic_keyboard_return_white_48dp_1x.png")
+                    span Back to the landing page
+    md-content(flex)
+        md-toolbar(layout="row")
+            md-button.menu(ng-click="lockLeft=!lockLeft")
+                md-icon(md-svg-src="assets/images/ic_reorder_black_24px.svg")
+            h1(flex) Request a new bug for an existing Redhat app
+            div.bugRequestContentAvatar(ng-click="logOutOpen()")
+                img(src="assets/images/ic_sentiment_very_satisfied_white_48dp_1x.png").avatar
+                img(src="assets/images/ic_arrow_drop_down_white_48dp_1x.png").iconDown 
+                p.bugRequestContentLogOut(ng-show="logOutIS" ng-click="logOut()") Log out   
+        md-content(flex ng-show="!switchContent").switchReviewRequests
+            md-card(flex layout="row" layout-align="space-between center").reviewBugRequestsCard 
+                div(layout="row")
+                    span.reviewRequestsCard-titleNumber number
+                    span.reviewRequestsCard-titleBugSummary Bug Summary
+                div(layout="row")
+                    span.reviewRequestsCard-titleFunction Delete
+                    span.reviewRequestsCard-titleFunction Approval
+                    span.reviewRequestsCard-titleFunction Attachment
+            md-card(flex layout="column" ng-repeat="request in requests track by $index" ng-click="request.showDetails = !request.showDetails").reviewBugRequestsCard
+                div(flex layout="row" layout-align="space-between center").reviewRequestsCard-resume
+                    div(layout="row")
+                        md-icon.icon-details(md-svg-src="assets/images/ic_keyboard_arrow_down_black_48px.svg" ng-if="request.showDetails")
+                        md-icon.icon-details(md-svg-src="assets/images/ic_keyboard_arrow_right_black_48px.svg" ng-if="!request.showDetails")
+                        span.reviewRequestsCard-number {{$index+1}}
+                        span.reviewRequestsCard-bugSummary(ng-model="request.bugSummary") {{request.bugSummary}}
+                    div(layout="row")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_content_cut_black_48px.svg" ng-click="showConfirm($event,request._id)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_check_box_outline_blank_black_24px.svg" ng-if="request.requestStatus === 'accept'" ng-click="showStatusChange($event,request)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_check_box_black_24px.svg" ng-if="request.requestStatus === 'adopt'" ng-click="showStatusChange($event,request)")
+                        md-icon.icon-function(md-svg-src="assets/images/ic_clear_black_48px.svg" ng-if="request.requestStatus === 'reject'" ng-click="showStatusChange($event,request)")      
+                        md-icon.icon-function(md-svg-src="assets/images/ic_file_download_black_48px.svg" ng-click="downloadAttachment(request.fileName,$event)")
+                div(flex layout="column" ng-if="request.showDetails").reviewRequestsCard-detail         
+                    span(flex).reviewRequestsCard-details select a app you want the bug for :
+                    span(flex).reviewRequestsCard-details {{request.apps}}
+                    span(flex).reviewRequestsCard-details write down the summary of the bug :
+                    span(flex).reviewRequestsCard-details {{request.bugSummary}} 
+                    span(flex).reviewRequestsCard-details write down the description of the bug :
+                    span(flex).reviewRequestsCard-details {{request.bugDescription}}
+        md-content(layout="column" ng-show="switchContent").switchNewRequest
+            form(name="bugRequestForm" layout="column" ng-submit="bugRequest(picFile)")#bugRequestForm  
+                div(flex layout="row")
+                    md-card(flex layout="column").card-shadow
+                        md-card-title(layout="column")
+                            h3 a1. select a app you want the bug for :
+                        md-card-content
+                            md-input-container
+                                label  app
+                                md-select.appSelect(name="apps" ng-model="answer.apps" required)
+                                    md-option(ng-repeat="app in utility.apps" value="{{app}}") {{app}}
+                                .input-error(ng-messages="bugRequestForm.apps.$error" ng-if="bugRequestForm.apps.$dirty && bugRequestForm.apps.$invalid")
+                                    span(ng-message="required") The app is required
+                md-card(layout="column").card-shadow
+                    md-card-title(layout="column")
+                        h3 b. write down the summary of the bug :
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="bugSummary" rows="1" cols="60" ng-model="answer.bugSummary" name="bugSummary" required)
+                            .input-error(ng-messages="bugRequestForm.bugSummary.$error" ng-if="bugRequestForm.bugSummary.$dirty && bugRequestForm.bugSummary.$invalid")
+                                span(ng-message="required") The bugSummary is required
+                md-card(layout="column").card-shadow
+                    md-card-title(layout="column")
+                        h3 c. write down the description of the bug :
+                    md-card-content
+                        md-input-container
+                            textarea(placeholder="bugDescription" rows="4" cols="60" ng-model="answer.bugDescription" name="bugDescription" required)
+                            .input-error(ng-messages="bugRequestForm.bugDescription.$error" ng-if="bugRequestForm.bugDescription.$dirty && bugRequestForm.bugDescription.$invalid")
+                                span(ng-message="required") The bugDescription is required
+                md-card(layout="column").card-shadow
+                    md-card-title(layout="column")
+                        h3 d. add attachment if you want :
+                    md-card-content(layout="row")
+                        //- label.md-button.md-raised.md-primary(for="input-file-id") Choose file
+                        input(type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" ngf-model-invalid="errorFile")
+                        img(ng-show="bugRequestForm.file.$valid" ngf-thumbnail="picFile").picFileShow
+                        span(ng-click="picFile = null" ng-show="picFile")#bugRequestRemove Remove
+                        h3(ng-show="bugRequestForm.file.$error.maxSize").picFileShowError File too large : {{errorFile.size / 1000000|number:1}}MB and max is 2M
+                input(type="submit" value="submit the bug")#bugRequestSubmit    
+                    

@@ -35,6 +35,18 @@
         window.deps.push("bower_components/angular-messages/angular-messages");
                 /*<script src="bower_components/angular-material/angular-material.js"/>*/
         window.deps.push("bower_components/angular-material/angular-material");
+                /*<script src="bower_components/angular-scroll/angular-scroll.js"/>*/
+        window.deps.push("bower_components/angular-scroll/angular-scroll");
+                /*<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"/>*/
+        window.deps.push("bower_components/angular-file-upload/dist/angular-file-upload.min");
+                /*<script src="bower_components/ng-file-upload/ng-file-upload.js"/>*/
+        window.deps.push("bower_components/ng-file-upload/ng-file-upload");
+                /*<script src="bower_components/blob-polyfill/Blob.js"/>*/
+        window.deps.push("bower_components/blob-polyfill/Blob");
+                /*<script src="bower_components/file-saver.js/FileSaver.js"/>*/
+        window.deps.push("bower_components/file-saver.js/FileSaver");
+                /*<script src="bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"/>*/
+        window.deps.push("bower_components/angular-file-saver/dist/angular-file-saver.bundle");
                 <!-- endbower -->
             <!-- endbuild -->
 
@@ -42,14 +54,38 @@
                 /*<script src="app/app.js"/>*/
                 window.deps.push('app/app')
                 <!-- injector:js -->
+                /*<script src="app/bugRequest/bugRequest.controller.js"/>*/
+        window.deps.push("app/bugRequest/bugRequest.controller");
+                /*<script src="app/bugRequest/bugRequest.js"/>*/
+        window.deps.push("app/bugRequest/bugRequest");
+                /*<script src="app/featureRequest/featureRequest.controller.js"/>*/
+        window.deps.push("app/featureRequest/featureRequest.controller");
+                /*<script src="app/featureRequest/featureRequest.js"/>*/
+        window.deps.push("app/featureRequest/featureRequest");
+                /*<script src="app/logInPage/logInPage.controller.js"/>*/
+        window.deps.push("app/logInPage/logInPage.controller");
+                /*<script src="app/logInPage/logInPage.js"/>*/
+        window.deps.push("app/logInPage/logInPage");
                 /*<script src="app/main/main.controller.js"/>*/
         window.deps.push("app/main/main.controller");
                 /*<script src="app/main/main.js"/>*/
         window.deps.push("app/main/main");
+                /*<script src="app/newAppRequest/newAppRequest.controller.js"/>*/
+        window.deps.push("app/newAppRequest/newAppRequest.controller");
+                /*<script src="app/newAppRequest/newAppRequest.js"/>*/
+        window.deps.push("app/newAppRequest/newAppRequest");
+                /*<script src="app/requestsReview/requestsReview.controller.js"/>*/
+        window.deps.push("app/requestsReview/requestsReview.controller");
+                /*<script src="app/requestsReview/requestsReview.js"/>*/
+        window.deps.push("app/requestsReview/requestsReview");
                 /*<script src="app/services/answersService.js"/>*/
         window.deps.push("app/services/answersService");
-                /*<script src="app/services/createCplantService.js"/>*/
-        window.deps.push("app/services/createCplantService");
+                /*<script src="app/services/bugRequestService.js"/>*/
+        window.deps.push("app/services/bugRequestService");
+                /*<script src="app/services/featureRequestService.js"/>*/
+        window.deps.push("app/services/featureRequestService");
+                /*<script src="app/services/newAppRequestService.js"/>*/
+        window.deps.push("app/services/newAppRequestService");
                 /*<script src="app/services/utilityService.js"/>*/
         window.deps.push("app/services/utilityService");
                 /*<script src="components/angular-translate-loader-static-files.min.js"/>*/
@@ -75,7 +111,7 @@
     <body>
         <!-- <div id="chrometwo">
             <div id="chromed-app-content" class="container"> -->
-        <div id="cplant" layout="row" ui-view="" lauout-padding></div>
+        <div id="cplant" ui-view=""></div>
             <!-- </div>
         </div> -->
         <script type="text/javascript">
